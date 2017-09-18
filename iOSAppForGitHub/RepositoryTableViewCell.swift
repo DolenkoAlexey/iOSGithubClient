@@ -9,15 +9,17 @@
 import UIKit
 
 class RepositoryTableViewCell: UITableViewCell {
-    @IBOutlet weak var repositoryName: UILabel!
+    @IBOutlet weak var repositoryNameLabel: UILabel!
+    @IBOutlet weak var ownerLabel: UILabel!
     @IBOutlet weak var starsCountLabel: UILabel!
-    @IBOutlet weak var watchersLabel: UILabel!
+    @IBOutlet weak var forksCountLabel: UILabel!
     
     var repository: Repository! {
         didSet {
-            repositoryName.text = repository.name ?? ""
+            repositoryNameLabel.text = repository.name ?? ""
+            ownerLabel.text = repository.owner?.login ?? ""
             starsCountLabel.text = "\(repository.starsCount ?? 0)"
-            watchersLabel.text = "\(repository.watchersCount ?? 0)"
+            forksCountLabel.text = "\(repository.forksCount ?? 0)"
         }
     }
     

@@ -12,13 +12,13 @@ import ObjectMapper
 public struct Repository: ImmutableMappable {
     let name: String?
     let starsCount: Int?
-    let watchersCount: Int?
+    let forksCount: Int?
     let owner: User?
     
     public init(map: Map) throws {
         name = try? map.value("name")
         starsCount = try? map.value("stargazers_count")
-        watchersCount = try? map.value("watchers_count")
+        forksCount = try? map.value("forks_count")
         owner = try? map.value("owner")
     }
 }

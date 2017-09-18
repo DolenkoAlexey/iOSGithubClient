@@ -1,0 +1,6 @@
+framework module Pods_iOSAppForGitHub {
+  umbrella header "Pods-iOSAppForGitHub-umbrella.h"
+
+  export *
+  module * { export * }
+}

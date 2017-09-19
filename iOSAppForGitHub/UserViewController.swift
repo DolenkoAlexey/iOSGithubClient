@@ -17,35 +17,22 @@ class UserViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     @IBOutlet weak var userMenuTableView: UIView!
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var followPanel: UIStackView!
     
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var followersCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
-    
-    private var userName: Driver<String> {
-        return searchBar.rx.text
-            .orEmpty
-            .asDriver()
-            .throttle(1)
-            .distinctUntilChanged()
-    }
+
+    var userName: Driver<String>!
+    private var currentUserName: String!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTranslucency()
+        userName.drive(onNext: { self.currentUserName = $0 }).addDisposableTo(disposeBag)
         setupUIBindings()
-    }
-    
-    private func setTranslucency() {
-        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     private func setupUIBindings() {
@@ -58,7 +45,7 @@ class UserViewController: UIViewController {
                 
                 switch userResult {
                 case .Success(let user):
-                    self.setUser(for: user)
+                    self.set(user: user)
                     
                     guard let avatarUrl = user.avatarUrl else {
                         return userNotFoundDriver
@@ -89,13 +76,13 @@ class UserViewController: UIViewController {
             .addDisposableTo(disposeBag)
     }
     
-    private func setUser(for user: User) {
+    private func set(user: User) {
         loginLabel.text = user.login ?? ""
         followersCountLabel.text = user.followersCount ?? ""
         followingCountLabel.text = user.followingCount ?? ""
         followPanel.isHidden = false
         userMenuTableView.isHidden = false
-        navigationItem.title = user.login
+        navigationController?.navigationBar.topItem?.title = user.login
     }
     
     private func setNotFoundUser() {
@@ -104,26 +91,26 @@ class UserViewController: UIViewController {
         followingCountLabel.text = "---"
         followPanel.isHidden = true
         userMenuTableView.isHidden = true
-        navigationItem.title = "User"
+        navigationController?.navigationBar.topItem?.title = "User"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.SegueIdentifiers.userMenuEmbed,
             let userMenu = segue.destination as? UserMenuTableViewController {
             
-            userName.drive(onNext: { userMenu.userName = $0 }).addDisposableTo(disposeBag)
+            userMenu.userName = userName
         }
         
         if let followersViewController = segue.destination as? FollowTableViewController {
             
             if segue.identifier == Constants.SegueIdentifiers.followers {
                 followersViewController.navigationItem.title = "Followers"
-                followersViewController.viewModel = viewModel.followViewModel(for: .followers(navigationItem.title ?? ""))
+                followersViewController.viewModel = viewModel.followViewModel(for: .followers(currentUserName))
             }
             
             if segue.identifier == Constants.SegueIdentifiers.following {
                 followersViewController.navigationItem.title = "Following"
-                followersViewController.viewModel = viewModel.followViewModel(for: .following(navigationItem.title ?? ""))
+                followersViewController.viewModel = viewModel.followViewModel(for: .following(currentUserName))
             }
         }
     }

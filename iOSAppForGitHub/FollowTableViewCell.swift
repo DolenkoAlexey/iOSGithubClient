@@ -18,6 +18,12 @@ class FollowTableViewCell: UITableViewCell {
     
     private let disposeBag = DisposeBag()
     
+    var user: User? {
+        didSet {
+            usernameLabel.text = user?.login
+        }
+    }
+    
     var avatar: Driver<RequestResult<Image?>>! {
         didSet {
             avatar.drive(onNext: { result in

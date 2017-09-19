@@ -15,8 +15,10 @@ struct Constants {
         static let repositories = "repositoriesSegue"
         static let issues = "issuesSegue"
         static let userMenuEmbed = "userMenuEmbedSegue"
+        static let userEmbed = "userEmbedSegue"
         static let following = "followingSegue"
         static let followers = "followersSegue"
+        static let showUser = "showUserSegue"
     }
     
     struct CellIdentifiers {

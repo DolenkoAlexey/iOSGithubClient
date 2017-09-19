@@ -13,7 +13,14 @@ import RxSwift
 import RxCocoa
 
 class UserMenuTableViewController: UITableViewController {
-    var userName: String!
+    var userName: Driver<String>! {
+        didSet {
+            userName.drive(onNext: { self.currentUserName = $0 }).addDisposableTo(disposeBag)
+        }
+    }
+    
+    private let disposeBag = DisposeBag()
+    private var currentUserName: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +40,7 @@ class UserMenuTableViewController: UITableViewController {
             repositoriesTableViewController.viewModel = RepositoriesViewModel()
             repositoriesTableViewController.repositories = repositoriesTableViewController
                 .viewModel
-                .getRepositories(destination: .userRepositories(userName))
+                .getRepositories(destination: .userRepositories(currentUserName))
         }
     }
 

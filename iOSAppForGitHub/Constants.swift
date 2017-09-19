@@ -15,13 +15,24 @@ struct Constants {
         static let repositories = "repositoriesSegue"
         static let issues = "issuesSegue"
         static let userMenuEmbed = "userMenuEmbedSegue"
+        static let following = "followingSegue"
+        static let followers = "followersSegue"
     }
     
     struct CellIdentifiers {
         static let repository = "RepositoryCell"
+        static let follow = "FollowCell"
     }
     
     struct ImageNames {
         static let userNotFound = "userNotFound"
+    }
+    
+    struct API {
+        // Url's
+        static let baseGitHubUrl = "https://api.github.com"
+        
+        // Headers
+        static let acceptHeader = "application/vnd.github.v3+json"
     }
 }

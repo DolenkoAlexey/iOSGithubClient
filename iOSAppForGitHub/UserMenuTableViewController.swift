@@ -14,12 +14,9 @@ import RxCocoa
 
 class UserMenuTableViewController: UITableViewController {
     var userName: String!
-    var userNameDriver: Driver<String>!
-    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userNameDriver.drive(onNext: { self.userName = $0 }).addDisposableTo(disposeBag)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

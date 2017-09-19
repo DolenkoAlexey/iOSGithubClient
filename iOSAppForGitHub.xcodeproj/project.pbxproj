@@ -24,6 +24,9 @@
 		4232B5981F5C5F6400939A4B /* String+URLEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4232B5971F5C5F6400939A4B /* String+URLEscaping.swift */; };
 		4232B59B1F5C643D00939A4B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4232B59A1F5C643D00939A4B /* User.swift */; };
 		4232B59E1F5C645600939A4B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4232B59D1F5C645600939A4B /* UserViewModel.swift */; };
+		427F1AC61F70815F0051AA9E /* FollowTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427F1AC51F70815F0051AA9E /* FollowTableViewController.swift */; };
+		427F1AC81F7081850051AA9E /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427F1AC71F7081850051AA9E /* FollowTableViewCell.swift */; };
+		427F1ACA1F708B2A0051AA9E /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427F1AC91F708B2A0051AA9E /* FollowViewModel.swift */; };
 		42C063471F617811000AC769 /* UserMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C063461F617811000AC769 /* UserMenuTableViewController.swift */; };
 		42C063491F617847000AC769 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C063481F617847000AC769 /* NewsViewModel.swift */; };
 		42C0634B1F61790A000AC769 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0634A1F61790A000AC769 /* NewsTableViewController.swift */; };
@@ -60,6 +63,9 @@
 		4232B5971F5C5F6400939A4B /* String+URLEscaping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+URLEscaping.swift"; sourceTree = "<group>"; };
 		4232B59A1F5C643D00939A4B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4232B59D1F5C645600939A4B /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		427F1AC51F70815F0051AA9E /* FollowTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowTableViewController.swift; sourceTree = "<group>"; };
+		427F1AC71F7081850051AA9E /* FollowTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
+		427F1AC91F708B2A0051AA9E /* FollowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
 		42C063461F617811000AC769 /* UserMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMenuTableViewController.swift; sourceTree = "<group>"; };
 		42C063481F617847000AC769 /* NewsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		42C0634A1F61790A000AC769 /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				4232B59D1F5C645600939A4B /* UserViewModel.swift */,
+				427F1AC91F708B2A0051AA9E /* FollowViewModel.swift */,
 				42C063481F617847000AC769 /* NewsViewModel.swift */,
 				42C063501F62A813000AC769 /* RepositoriesViewModel.swift */,
 			);
@@ -203,6 +210,7 @@
 				42C0634A1F61790A000AC769 /* NewsTableViewController.swift */,
 				42C0634C1F617BEC000AC769 /* RepositoriesTableViewController.swift */,
 				42C0634E1F617C08000AC769 /* IssuesTableViewController.swift */,
+				427F1AC51F70815F0051AA9E /* FollowTableViewController.swift */,
 			);
 			name = TableViews;
 			sourceTree = "<group>";
@@ -211,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				42C063571F62C14D000AC769 /* RepositoryTableViewCell.swift */,
+				427F1AC71F7081850051AA9E /* FollowTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -349,12 +358,14 @@
 			files = (
 				42C063631F66FA69000AC769 /* Result.swift in Sources */,
 				4232B5751F5C238600939A4B /* UserViewController.swift in Sources */,
+				427F1ACA1F708B2A0051AA9E /* FollowViewModel.swift in Sources */,
 				42C0634F1F617C08000AC769 /* IssuesTableViewController.swift in Sources */,
 				42C0634D1F617BEC000AC769 /* RepositoriesTableViewController.swift in Sources */,
 				42C063551F62A8AE000AC769 /* Repository.swift in Sources */,
 				42C063471F617811000AC769 /* UserMenuTableViewController.swift in Sources */,
 				4232B59E1F5C645600939A4B /* UserViewModel.swift in Sources */,
 				4232B5961F5C5E8600939A4B /* GitHubAPI.swift in Sources */,
+				427F1AC61F70815F0051AA9E /* FollowTableViewController.swift in Sources */,
 				42C0635D1F65BD9E000AC769 /* Constants.swift in Sources */,
 				4232B5981F5C5F6400939A4B /* String+URLEscaping.swift in Sources */,
 				42C063611F6606D1000AC769 /* UIAlertController+showErrorAlert.swift in Sources */,
@@ -364,6 +375,7 @@
 				42C063491F617847000AC769 /* NewsViewModel.swift in Sources */,
 				42C0635B1F62E3FB000AC769 /* RepositoryExploreViewController.swift in Sources */,
 				42C063511F62A813000AC769 /* RepositoriesViewModel.swift in Sources */,
+				427F1AC81F7081850051AA9E /* FollowTableViewCell.swift in Sources */,
 				42C0634B1F61790A000AC769 /* NewsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

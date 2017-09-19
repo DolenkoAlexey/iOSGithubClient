@@ -18,6 +18,7 @@ class UserViewController: UIViewController {
     
     @IBOutlet weak var userMenuTableView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var followPanel: UIStackView!
     
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var userProfileImage: UIImageView!
@@ -89,26 +90,41 @@ class UserViewController: UIViewController {
     }
     
     private func setUser(for user: User) {
-        self.loginLabel.text = user.login ?? ""
-        self.followersCountLabel.text = user.followersCount ?? ""
-        self.followingCountLabel.text = user.followingCount ?? ""
-        self.userMenuTableView.isHidden = false
-        self.title = user.login
+        loginLabel.text = user.login ?? ""
+        followersCountLabel.text = user.followersCount ?? ""
+        followingCountLabel.text = user.followingCount ?? ""
+        followPanel.isHidden = false
+        userMenuTableView.isHidden = false
+        navigationItem.title = user.login
     }
     
     private func setNotFoundUser() {
-        self.userMenuTableView.isHidden = true
-        self.loginLabel.text = "User not found"
-        self.title = "User"
-        self.followersCountLabel.text = "---"
-        self.followingCountLabel.text = "---"
+        loginLabel.text = "User not found"
+        followersCountLabel.text = "---"
+        followingCountLabel.text = "---"
+        followPanel.isHidden = true
+        userMenuTableView.isHidden = true
+        navigationItem.title = "User"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.SegueIdentifiers.userMenuEmbed,
             let userMenu = segue.destination as? UserMenuTableViewController {
             
-            userMenu.userNameDriver = userName
+            userName.drive(onNext: { userMenu.userName = $0 }).addDisposableTo(disposeBag)
+        }
+        
+        if let followersViewController = segue.destination as? FollowTableViewController {
+            
+            if segue.identifier == Constants.SegueIdentifiers.followers {
+                followersViewController.navigationItem.title = "Followers"
+                followersViewController.viewModel = viewModel.followViewModel(for: .followers(navigationItem.title ?? ""))
+            }
+            
+            if segue.identifier == Constants.SegueIdentifiers.following {
+                followersViewController.navigationItem.title = "Following"
+                followersViewController.viewModel = viewModel.followViewModel(for: .following(navigationItem.title ?? ""))
+            }
         }
     }
 }

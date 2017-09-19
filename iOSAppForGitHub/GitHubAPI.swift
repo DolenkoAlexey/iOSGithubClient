@@ -15,25 +15,17 @@ import Moya_ObjectMapper
 public enum GitHubApi {
     case userProfile(String)
     case userProfileAvatar(String)
+    case followers(String)
+    case following(String)
     case userRepositories(String)
     case branches(String, Bool)
     case repositories(String)
 }
 
-extension GitHubApi {
-    public struct Constants {
-        // Url's
-        static let baseUrlString = "https://api.github.com"
-        
-        // Headers
-        static let acceptHeader = "application/vnd.github.v3+json"
-    }
-}
-
 extension GitHubApi: SugarTargetType {
     public var task: Task { return .request }
     
-    public var baseURL: URL { return URL(string: GitHubApi.Constants.baseUrlString)! }
+    public var baseURL: URL { return URL(string: Constants.API.baseGitHubUrl)! }
     
     public var url: URL {
         switch self {
@@ -48,14 +40,24 @@ extension GitHubApi: SugarTargetType {
         switch self {
         case .userProfile(let name):
             return .get("/users/\(name.urlEscaped)")
+            
         case .userProfileAvatar(let url):
             return .get(url)
+            
         case .userRepositories(let name):
             return .get("/users/\(name.urlEscaped)/repos")
+            
         case .branches(let repo, _):
             return .get("/repos/\(repo.urlEscaped)/branches")
+            
         case .repositories(_):
             return .get("/search/repositories")
+            
+        case .followers(let username):
+            return .get("users/\(username)/followers")
+            
+        case .following(let username):
+            return .get("users/\(username)/followers")
         }
         
     }
@@ -79,7 +81,7 @@ extension GitHubApi: SugarTargetType {
             return nil
         default:
             return [
-                "Accept": GitHubApi.Constants.acceptHeader,
+                "Accept": Constants.API.acceptHeader,
                 "X-RateLimit-Remaining": "100"
             ]
         }

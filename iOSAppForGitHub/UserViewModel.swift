@@ -16,10 +16,10 @@ import Moya_ObjectMapper
 public protocol UserViewModelType {
     func getUser(by login: String) -> Driver<RequestResult<User>>
     func getUserAvatar(by avatarUrl: String) -> Driver<RequestResult<Image?>>
+    func followViewModel(for endpoint: GitHubApi) -> FollowViewModelType
 }
 
 public struct UserViewModel: UserViewModelType {
-    fileprivate let disposeBag = DisposeBag()
     fileprivate var provider = GitHubApi.sharedProviderInstance
     
     public func getUser(by login: String) -> Driver<RequestResult<User>> {
@@ -42,6 +42,9 @@ public struct UserViewModel: UserViewModelType {
             .mapImage()
             .map { .Success($0) }
             .asDriver(onErrorRecover: { .just(.Error(ReqestError(description: $0.localizedDescription,  code: .requestError))) })
-        
+    }
+    
+    public func followViewModel(for endpoint: GitHubApi) -> FollowViewModelType {
+        return FollowViewModel(userViewModel: self, endpoint: endpoint)
     }
 }

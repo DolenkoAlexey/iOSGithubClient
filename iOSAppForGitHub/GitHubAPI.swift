@@ -57,7 +57,7 @@ extension GitHubApi: SugarTargetType {
             return .get("users/\(username.urlEscaped)/followers")
             
         case .following(let username):
-            return .get("users/\(username.urlEscaped)/followers")
+            return .get("users/\(username.urlEscaped)/following")
         }
         
     }

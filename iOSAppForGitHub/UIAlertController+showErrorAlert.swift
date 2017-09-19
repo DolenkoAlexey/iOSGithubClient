@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 extension UIAlertController {
-    static func showErrorAlert(_ error: String, context: UIViewController) {
+    static func showErrorAlert(_ error: String, context: UIViewController?) {
         let alert = UIAlertController(title: "Oops", message: error, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel",style: .cancel))
-        context.present(alert, animated: true)
+        context?.present(alert, animated: true)
     }
 }

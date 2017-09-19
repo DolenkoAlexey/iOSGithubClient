@@ -13,14 +13,16 @@ import RxSwift
 import RxCocoa
 
 class UserMenuTableViewController: UITableViewController {
-    var userName: Driver<String>! {
+    var user: Driver<User>! {
         didSet {
-            userName.drive(onNext: { self.currentUserName = $0 }).addDisposableTo(disposeBag)
+            user.drive(onNext: { self.currentUserName = $0.login }).addDisposableTo(disposeBag)
         }
     }
     
+    var userImage: Driver<Image?>!
+    
     private let disposeBag = DisposeBag()
-    private var currentUserName: String!
+    private var currentUserName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,17 +32,21 @@ class UserMenuTableViewController: UITableViewController {
         if let identifier = segue.identifier,
             identifier == Constants.SegueIdentifiers.news,
             let newsTableViewController = segue.destination as? NewsTableViewController {
-                newsTableViewController.viewModel = NewsTableViewModel()
+            
+                newsTableViewController.viewModel = NewsViewModel()
+                newsTableViewController.user = user
+                newsTableViewController.userImage = userImage
         }
         
         if let identifier = segue.identifier,
             identifier == Constants.SegueIdentifiers.repositories,
-            let repositoriesTableViewController = segue.destination as? RepositoriesTableViewController {
+            let repositoriesTableViewController = segue.destination as? RepositoriesTableViewController,
+            let username = currentUserName {
             
             repositoriesTableViewController.viewModel = RepositoriesViewModel()
             repositoriesTableViewController.repositories = repositoriesTableViewController
                 .viewModel
-                .getRepositories(destination: .userRepositories(currentUserName))
+                .getRepositories(destination: .userRepositories(username))
         }
     }
 

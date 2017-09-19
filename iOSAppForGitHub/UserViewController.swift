@@ -9,12 +9,10 @@
 import UIKit
 import Moya
 import RxCocoa
+import RxOptional
 import RxSwift
 
 class UserViewController: UIViewController {
-
-    var viewModel: UserViewModelType!
-    private let disposeBag = DisposeBag()
     
     @IBOutlet weak var userMenuTableView: UIView!
     @IBOutlet weak var followPanel: UIStackView!
@@ -24,10 +22,51 @@ class UserViewController: UIViewController {
     @IBOutlet weak var followersCountLabel: UILabel!
     @IBOutlet weak var followingCountLabel: UILabel!
 
+    var viewModel: UserViewModelType!
+    private let disposeBag = DisposeBag()
+
     var userName: Driver<String>!
+    
+    lazy var user: Driver<User?> = {
+            return self.userName
+                .flatMapLatest { userName in self.viewModel.getUser(by: userName) }
+                .map { [weak self] userResult -> User? in
+                    switch userResult {
+                    case .Success(let user):
+                        return user
+                    case .Error(let error):
+                        if error.code != .notFound {
+                            UIAlertController.showErrorAlert(error.description, context: self)
+                        }
+                        
+                        return nil
+                    }
+                }
+        }()
+    
+    lazy var userAvatar: Driver<Image?> = {
+            self.user.filterNil()
+                .flatMapLatest { user -> Driver<RequestResult<Image?>> in
+                    let userNotFoundDriver = Driver<RequestResult<Image?>>.just(.Success(UIImage(named: Constants.ImageNames.userNotFound)))
+                    
+                    guard let avatarUrl = user.avatarUrl else {
+                        return userNotFoundDriver
+                    }
+                    
+                    return self.viewModel.getUserAvatar(by: avatarUrl)
+                }
+                .map { result -> Image? in
+                    switch result {
+                    case .Success(let image):
+                        return image
+                    case .Error(_):
+                        return nil
+                    }
+                }
+        }()
+    
     private var currentUserName: String!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,44 +75,18 @@ class UserViewController: UIViewController {
     }
     
     private func setupUIBindings() {
-        userName
-            .flatMapLatest { userName in
-                return self.viewModel.getUser(by: userName)
-            }
-            .flatMapLatest { userResult -> Driver<RequestResult<Image?>> in
-                let userNotFoundDriver = Driver<RequestResult<Image?>>.just(.Success(UIImage(named: Constants.ImageNames.userNotFound)))
-                
-                switch userResult {
-                case .Success(let user):
-                    self.set(user: user)
-                    
-                    guard let avatarUrl = user.avatarUrl else {
-                        return userNotFoundDriver
-                    }
-                    
-                    return self.viewModel.getUserAvatar(by: avatarUrl)
-                case .Error(let error):
-                    if error.code != .notFound {
-                        UIAlertController.showErrorAlert(error.description, context: self)
-                    }
-                    
+        userAvatar.drive(onNext: { image in
+                self.userProfileImage.image = image
+            }).addDisposableTo(disposeBag)
+        
+        user.drive(onNext: { user in
+                if user != nil {
+                    self.set(user: user!)
+                } else {
                     self.setNotFoundUser()
-                    
-                    return userNotFoundDriver
                 }
-                
-               
-            }
-            .drive(onNext: { userImage in
-                switch userImage {
-                case .Success(let image):
-                    self.userProfileImage.image = image
-                case .Error(_):
-                    break
-                }
-                
-            })
-            .addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
+        
     }
     
     private func set(user: User) {
@@ -98,7 +111,8 @@ class UserViewController: UIViewController {
         if segue.identifier == Constants.SegueIdentifiers.userMenuEmbed,
             let userMenu = segue.destination as? UserMenuTableViewController {
             
-            userMenu.userName = userName
+            userMenu.user = user.filterNil()
+            userMenu.userImage = userAvatar
         }
         
         if let followersViewController = segue.destination as? FollowTableViewController {

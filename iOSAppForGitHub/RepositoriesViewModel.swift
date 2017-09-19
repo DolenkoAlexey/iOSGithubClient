@@ -17,12 +17,11 @@ public protocol RepositoriesViewModelType {
     func getRepositories(destination: GitHubApi) -> Driver<RequestResult<[Repository]>>
 }
 
-public class RepositoriesViewModel: RepositoriesViewModelType {
+public struct RepositoriesViewModel: RepositoriesViewModelType {
     fileprivate var provider = GitHubApi.sharedProviderInstance
     
     public func getRepositories(destination: GitHubApi) -> Driver<RequestResult<[Repository]>> {
         return provider.request(destination)
-            .observeOn(MainScheduler.instance)
             .filterSuccessfulStatusCodes()
             .mapRepositories(destination: destination)
             .map { .Success($0) }

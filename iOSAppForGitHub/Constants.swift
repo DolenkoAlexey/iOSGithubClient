@@ -24,6 +24,7 @@ struct Constants {
     struct CellIdentifiers {
         static let repository = "RepositoryCell"
         static let follow = "FollowCell"
+        static let news = "NewsCell"
     }
     
     struct ImageNames {

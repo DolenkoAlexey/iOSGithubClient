@@ -29,8 +29,7 @@ class UserMenuTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier,
-            identifier == Constants.SegueIdentifiers.news,
+        if segue.identifier == Constants.SegueIdentifiers.news,
             let newsTableViewController = segue.destination as? NewsTableViewController {
             
                 newsTableViewController.viewModel = NewsViewModel()
@@ -38,16 +37,21 @@ class UserMenuTableViewController: UITableViewController {
                 newsTableViewController.userImage = userImage
         }
         
-        if let identifier = segue.identifier,
-            identifier == Constants.SegueIdentifiers.repositories,
+        if segue.identifier == Constants.SegueIdentifiers.repositories,
             let repositoriesTableViewController = segue.destination as? RepositoriesTableViewController,
             let username = currentUserName {
             
-            repositoriesTableViewController.viewModel = RepositoriesViewModel()
-            repositoriesTableViewController.repositories = repositoriesTableViewController
-                .viewModel
-                .getRepositories(destination: .userRepositories(username))
+                repositoriesTableViewController.viewModel = RepositoriesViewModel()
+                repositoriesTableViewController.repositories = repositoriesTableViewController
+                    .viewModel
+                    .getRepositories(destination: .userRepositories(username))
+        }
+        
+        if segue.identifier == Constants.SegueIdentifiers.subscriptions,
+            let subscriptionsTableViewController = segue.destination as? SubscriptionsTableViewController,
+            let username = currentUserName {
+                subscriptionsTableViewController.viewModel = SubscriptionViewModel(userViewModel: UserViewModel())
+                subscriptionsTableViewController.currentUserName = username
         }
     }
-
 }

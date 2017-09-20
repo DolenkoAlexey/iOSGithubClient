@@ -47,10 +47,8 @@ class UserViewController: UIViewController {
     lazy var userAvatar: Driver<Image?> = {
             self.user.filterNil()
                 .flatMapLatest { user -> Driver<RequestResult<Image?>> in
-                    let userNotFoundDriver = Driver<RequestResult<Image?>>.just(.Success(UIImage(named: Constants.ImageNames.userNotFound)))
-                    
                     guard let avatarUrl = user.avatarUrl else {
-                        return userNotFoundDriver
+                        return .just(.Success(UIImage(named: Constants.ImageNames.userNotFound)))
                     }
                     
                     return self.viewModel.getUserAvatar(by: avatarUrl)

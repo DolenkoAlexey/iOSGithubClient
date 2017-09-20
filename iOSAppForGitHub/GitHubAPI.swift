@@ -21,6 +21,7 @@ public enum GitHubApi {
     case branches(String, Bool)
     case repositories(String)
     case events(String)
+    case subscriptions(String)
 }
 
 extension GitHubApi: SugarTargetType {
@@ -62,6 +63,9 @@ extension GitHubApi: SugarTargetType {
         
         case .events(let userName):
             return .get("users/\(userName.urlEscaped)/events")
+            
+        case .subscriptions(let username):
+            return .get("users/\(username.urlEscaped)/subscriptions")
         }
     }
     

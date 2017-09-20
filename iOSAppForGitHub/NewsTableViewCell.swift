@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var userImageView: UIImageView!
@@ -15,4 +17,27 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
+    private let disposeBag = DisposeBag()
+    
+    var user: Driver<User>! {
+        didSet {
+            user.drive(onNext: { user in self.userNameLabel.text = user.login }).addDisposableTo(disposeBag)
+        }
+    }
+    
+    var userImage: Driver<UIImage?>! {
+        didSet {
+            userImage.drive(onNext: { image in self.userImageView.image = image }).addDisposableTo(disposeBag)
+        }
+    }
+    
+    var event: Event! {
+        didSet {
+            repositoryNameLabel.text = event.repositoryName
+            eventTypeLabel.text = event.type
+            dateLabel.text = event.eventDate
+            timeLabel.text = event.eventTime
+        }
+    }
 }

@@ -13,7 +13,7 @@ struct Constants {
         static let repositoriesExplore = "repositoriesExploreSegue"
         static let news = "newsSegue"
         static let repositories = "repositoriesSegue"
-        static let issues = "issuesSegue"
+        static let subscriptions = "subscriptionsSegue"
         static let userMenuEmbed = "userMenuEmbedSegue"
         static let userEmbed = "userEmbedSegue"
         static let following = "followingSegue"
@@ -25,6 +25,7 @@ struct Constants {
         static let repository = "RepositoryCell"
         static let follow = "FollowCell"
         static let news = "NewsCell"
+        static let subscriptions = "SubscriptionCell"
     }
     
     struct ImageNames {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42164E861F7286A800DADEAE /* String+CamelCaseToWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42164E851F7286A800DADEAE /* String+CamelCaseToWords.swift */; };
 		4232B5731F5C238600939A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4232B5721F5C238600939A4B /* AppDelegate.swift */; };
 		4232B5751F5C238600939A4B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4232B5741F5C238600939A4B /* UserViewController.swift */; };
 		4232B5781F5C238600939A4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4232B5761F5C238600939A4B /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		18682356F9AED75E5E53B645 /* Pods-iOSAppForGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSAppForGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSAppForGitHub/Pods-iOSAppForGitHub.release.xcconfig"; sourceTree = "<group>"; };
+		42164E851F7286A800DADEAE /* String+CamelCaseToWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+CamelCaseToWords.swift"; sourceTree = "<group>"; };
 		4232B56F1F5C238600939A4B /* iOSAppForGitHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAppForGitHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4232B5721F5C238600939A4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4232B5741F5C238600939A4B /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				4232B5971F5C5F6400939A4B /* String+URLEscaping.swift */,
+				42164E851F7286A800DADEAE /* String+CamelCaseToWords.swift */,
 				425EAD261F71CE6900E4FDD4 /* String+DateFormat.swift */,
 				4232B5951F5C5E8600939A4B /* GitHubAPI.swift */,
 				42C0635C1F65BD9E000AC769 /* Constants.swift */,
@@ -390,6 +393,7 @@
 				4232B5731F5C238600939A4B /* AppDelegate.swift in Sources */,
 				42C063491F617847000AC769 /* NewsViewModel.swift in Sources */,
 				42C0635B1F62E3FB000AC769 /* RepositoryExploreViewController.swift in Sources */,
+				42164E861F7286A800DADEAE /* String+CamelCaseToWords.swift in Sources */,
 				42C063511F62A813000AC769 /* RepositoriesViewModel.swift in Sources */,
 				427F1AC81F7081850051AA9E /* FollowTableViewCell.swift in Sources */,
 				42C0634B1F61790A000AC769 /* NewsTableViewController.swift in Sources */,

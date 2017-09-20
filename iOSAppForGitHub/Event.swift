@@ -16,8 +16,12 @@ public struct Event: ImmutableMappable {
     let eventTime: String?
     
     public init(map: Map) throws {
-        type = try? map.value("type")
         repositoryName = try? map.value("repo.name")
+        
+        if let type = (try? map.value("type")) as String? {
+            self.type = type.CamelCaseToWords()
+        } else { self.type = nil }
+        
         if let date = (try? map.value("created_at")) as String? {
             eventDate = date.date()
             eventTime = date.time()

@@ -24,6 +24,8 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "News"
+        
         user.drive(onNext: { self.currentUser = $0 }).addDisposableTo(disposeBag)
         userImage.drive(onNext: { self.currentUserImage = $0 }).addDisposableTo(disposeBag)
         setUpBindings()

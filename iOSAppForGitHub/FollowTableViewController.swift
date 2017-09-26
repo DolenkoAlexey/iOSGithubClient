@@ -25,7 +25,7 @@ class FollowTableViewController: UITableViewController {
     
     private func setUIBindings() {
         viewModel.getUsers()
-            .map { result -> [User] in
+            .map {[weak self] result -> [User] in
                 switch result {
                 case .Success(let users):
                     return users
@@ -37,9 +37,9 @@ class FollowTableViewController: UITableViewController {
             .drive(tableView.rx.items(
                 cellIdentifier: Constants.CellIdentifiers.follow,
                 cellType: FollowTableViewCell.self)
-            ) { (_, user, cell) in
+            ) {[weak self] (_, user, cell) in
                 cell.user = user
-                cell.avatar = self.viewModel.getUserAvatar(by: user.avatarUrl!)
+                cell.avatar = self?.viewModel.getUserAvatar(by: user.avatarUrl!)
             }.disposed(by: disposeBag)
     }
     

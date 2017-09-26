@@ -17,6 +17,9 @@ class RepositoriesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "Repositories"
+        
         setUpBindings()
     }
     

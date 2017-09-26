@@ -24,12 +24,14 @@ class SubscriptionsTableViewController: UITableViewController {
         tableView.dataSource = nil
         tableView.delegate = nil
         
+        navigationItem.title = "Subscriptions"
+        
         setUIBindings()
     }
     
     private func setUIBindings() {
         viewModel.getSubscriptions(of: currentUserName)
-            .map { result -> [Subscription] in
+            .map {[weak self] result -> [Subscription] in
                 switch result {
                 case .Success(let subscriptions):
                     return subscriptions
@@ -41,11 +43,11 @@ class SubscriptionsTableViewController: UITableViewController {
             .drive(tableView.rx.items(
                 cellIdentifier: Constants.CellIdentifiers.subscriptions,
                 cellType: SubscriptionTableViewCell.self)
-            ) { (_, subscription, cell) in
+            ) {[weak self] (_, subscription, cell) in
                 cell.subscription = subscription
                 
                 if let avatarUrl = subscription.owner?.avatarUrl {
-                    cell.userImage = self.viewModel.getUserAvatar(by: avatarUrl).map {
+                    cell.userImage = self?.viewModel.getUserAvatar(by: avatarUrl).map {
                         switch $0 {
                         case .Success(let image):
                             return image

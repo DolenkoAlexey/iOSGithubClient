@@ -22,13 +22,13 @@ class NewsTableViewCell: UITableViewCell {
     
     var user: Driver<User>! {
         didSet {
-            user.drive(onNext: { user in self.userNameLabel.text = user.login }).addDisposableTo(disposeBag)
+            user.drive(onNext: {[weak self] user in self?.userNameLabel.text = user.login }).addDisposableTo(disposeBag)
         }
     }
     
     var userImage: Driver<UIImage?>! {
         didSet {
-            userImage.drive(onNext: { image in self.userImageView.image = image }).addDisposableTo(disposeBag)
+            userImage.drive(onNext: {[weak self] image in self?.userImageView.image = image }).addDisposableTo(disposeBag)
         }
     }
     

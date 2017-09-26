@@ -6,7 +6,6 @@
 //  Copyright © 2017 Alex Dolenko. All rights reserved.
 //
 
-import MoyaSugar
 import Moya
 import RxSwift
 import RxCocoa
@@ -38,7 +37,7 @@ public struct UserViewModel: UserViewModelType {
     
     public func getUserAvatar(by avatarUrl: String) -> Driver<RequestResult<Image?>> {
         return provider
-            .request(.userProfileAvatar(avatarUrl))
+            .request(.userProfileImage(avatarUrl))
             .mapImage()
             .map { .Success($0) }
             .asDriver(onErrorRecover: { .just(.Error(ReqestError(description: $0.localizedDescription,  code: .requestError))) })

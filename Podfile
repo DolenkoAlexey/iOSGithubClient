@@ -12,7 +12,5 @@ target 'iOSAppForGitHub' do
   pod 'Moya/RxSwift’
   pod 'Moya-ObjectMapper'
   pod ‘Moya-ObjectMapper/RxSwift’
-  pod 'MoyaSugar/RxSwift', '~> 0.4'
-  # Pods for iOSAppForGitHub
 
 end

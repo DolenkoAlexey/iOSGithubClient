@@ -17,7 +17,7 @@ public struct Subscription: ImmutableMappable {
     let owner: User?
     
     public init(map: Map) throws {
-        name = try? map.value("full_name")
+        name = try? map.value("name")
         description = try? map.value("description")
         starsCount = try? map.value("forks_count")
         owner = try? map.value("owner")

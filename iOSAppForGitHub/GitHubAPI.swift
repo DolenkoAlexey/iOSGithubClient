@@ -6,15 +6,12 @@
 //  Copyright © 2017 Alex Dolenko. All rights reserved.
 //
 
-import Foundation
-import RxSwift
 import Moya
-import MoyaSugar
-import Moya_ObjectMapper
+import RxSwift
 
 public enum GitHubApi {
     case userProfile(String)
-    case userProfileAvatar(String)
+    case userProfileImage(String)
     case followers(String)
     case following(String)
     case userRepositories(String)
@@ -24,67 +21,45 @@ public enum GitHubApi {
     case subscriptions(String)
 }
 
-extension GitHubApi: SugarTargetType {
-    public var task: Task { return .request }
-    
-    public var baseURL: URL { return URL(string: Constants.API.baseGitHubUrl)! }
-    
-    public var url: URL {
-        switch self {
-        case .userProfileAvatar(let urlString):
-            return URL(string: urlString)!
-        default:
-            return self.defaultURL
-        }
-    }
-    
-    public var route: Route {
+extension GitHubApi: TargetType {
+    public var path: String {
         switch self {
         case .userProfile(let name):
-            return .get("/users/\(name.urlEscaped)")
+            return "/users/\(name.urlEscaped)"
             
-        case .userProfileAvatar(let url):
-            return .get(url)
+        case .userProfileImage(_):
+            return ""
             
         case .userRepositories(let name):
-            return .get("/users/\(name.urlEscaped)/repos")
+            return "/users/\(name.urlEscaped)/repos"
             
         case .branches(let repo, _):
-            return .get("/repos/\(repo.urlEscaped)/branches")
+            return "/repos/\(repo.urlEscaped)/branches"
             
         case .repositories(_):
-            return .get("/search/repositories")
+            return "/search/repositories"
             
         case .followers(let username):
-            return .get("users/\(username.urlEscaped)/followers")
+            return "users/\(username.urlEscaped)/followers"
             
         case .following(let username):
-            return .get("users/\(username.urlEscaped)/following")
-        
+            return "users/\(username.urlEscaped)/following"
+            
         case .events(let userName):
-            return .get("users/\(userName.urlEscaped)/events")
+            return "users/\(userName.urlEscaped)/events"
             
         case .subscriptions(let username):
-            return .get("users/\(username.urlEscaped)/subscriptions")
+            return "users/\(username.urlEscaped)/subscriptions"
         }
     }
     
-    public var params: Parameters? {
-        switch self {
-        case .userRepositories:
-            return ["sort": "pushed"]
-        case .branches(_, let protected):
-            return ["protected": "\(protected)"]
-        case .repositories(let repoName):
-            return ["q": repoName, "sort": "pushed"]
-        default:
-            return nil
-        }
+    public var method: Moya.Method {
+        return .get
     }
     
-    public var httpHeaderFields: [String: String]? {
+    public var headers: [String : String]? {
         switch self {
-        case .userProfileAvatar(_):
+        case .userProfileImage(_):
             return nil
         default:
             return [
@@ -94,22 +69,37 @@ extension GitHubApi: SugarTargetType {
         }
     }
     
+    public var task: Task {
+        switch self {
+        case .userRepositories:
+            return .requestParameters(parameters: ["sort": "pushed"], encoding: URLEncoding.default)
+        case .branches(_, let protected):
+            return .requestParameters(parameters: ["protected": "\(protected)"], encoding: URLEncoding.default)
+        case .repositories(let repoName):
+            return .requestParameters(parameters: ["q": repoName, "sort": "pushed"], encoding: URLEncoding.default)
+        default:
+            return .requestPlain
+        }
+        
+    }
+    
+    public var baseURL: URL {
+        switch self {
+        case .userProfileImage(let urlString):
+            return URL(string: urlString)!
+        default:
+            return URL(string: Constants.API.baseGitHubUrl)!
+        }
+        
+    }
     
     public var sampleData: Data {
         return Data()
-//        switch self {
-//        case .userProfile(let name):
-//            return "{\"login\": \"\(name)\", \"id\": 100}".data(using: String.Encoding.utf8)!
-//        case .userRepositories:
-//            return "[{\"name\": \"Repo Name\"}]".data(using: String.Encoding.utf8)!
-//        case .branches:
-//            return "[{\"name\": \"master\"}]".data(using: String.Encoding.utf8)!
-//        }
     }
 }
 
 extension GitHubApi {
-    static let sharedProviderInstance: RxMoyaSugarProvider<GitHubApi> = {
-        RxMoyaSugarProvider<GitHubApi>()
+    static let sharedProviderInstance: Reactive<RxMoyaProvider<GitHubApi>> = {
+        RxMoyaProvider<GitHubApi>().rx
     }()
 }

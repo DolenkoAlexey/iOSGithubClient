@@ -6,7 +6,6 @@
 //  Copyright © 2017 Alex Dolenko. All rights reserved.
 //
 
-import MoyaSugar
 import Moya
 import RxCocoa
 import RxSwift
@@ -23,6 +22,7 @@ public struct RepositoriesViewModel: RepositoriesViewModelType {
     public func getRepositories(destination: GitHubApi) -> Driver<RequestResult<[Repository]>> {
         return provider.request(destination)
             .filterSuccessfulStatusCodes()
+            .asObservable()
             .mapRepositories(destination: destination)
             .map { .Success($0) }
             .asDriver(onErrorRecover: { error in

@@ -13,7 +13,6 @@ import RxOptional
 import RxSwift
 
 class UserViewController: UIViewController {
-    
     @IBOutlet weak var userMenuTableView: UIView!
     @IBOutlet weak var followPanel: UIStackView!
     
@@ -27,9 +26,9 @@ class UserViewController: UIViewController {
 
     var userName: Driver<String>!
     
-    lazy var user: Driver<User?> = {
-            return self.userName
-                .flatMapLatest { userName in self.viewModel.getUser(by: userName) }
+    lazy var user: Driver<User?> = {[unowned self] in
+             self.userName
+                .flatMapLatest {[unowned self] userName in self.viewModel.getUser(by: userName) }
                 .map { [weak self] userResult -> User? in
                     switch userResult {
                     case .Success(let user):
@@ -44,9 +43,9 @@ class UserViewController: UIViewController {
                 }
         }()
     
-    lazy var userAvatar: Driver<Image?> = {
+    lazy var userAvatar: Driver<Image?> = {[unowned self] in
             self.user.filterNil()
-                .flatMapLatest { user -> Driver<RequestResult<Image?>> in
+                .flatMapLatest {[unowned self] user -> Driver<RequestResult<Image?>> in
                     guard let avatarUrl = user.avatarUrl else {
                         return .just(.Success(UIImage(named: Constants.ImageNames.userNotFound)))
                     }
@@ -68,20 +67,20 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userName.drive(onNext: { self.currentUserName = $0 }).addDisposableTo(disposeBag)
+        userName.drive(onNext: {[weak self] in self?.currentUserName = $0 }).addDisposableTo(disposeBag)
         setupUIBindings()
     }
     
     private func setupUIBindings() {
-        userAvatar.drive(onNext: { image in
-                self.userProfileImage.image = image
+        userAvatar.drive(onNext: {[weak self] image in
+                self?.userProfileImage.image = image
             }).addDisposableTo(disposeBag)
         
-        user.drive(onNext: { user in
+        user.drive(onNext: {[weak self] user in
                 if user != nil {
-                    self.set(user: user!)
+                    self?.set(user: user!)
                 } else {
-                    self.setNotFoundUser()
+                    self?.setNotFoundUser()
                 }
             }).addDisposableTo(disposeBag)
         

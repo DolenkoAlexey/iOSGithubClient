@@ -8,14 +8,13 @@
 
 import UIKit
 import Moya
-import MoyaSugar
 import RxSwift
 import RxCocoa
 
 class UserMenuTableViewController: UITableViewController {
     var user: Driver<User>! {
         didSet {
-            user.drive(onNext: { self.currentUserName = $0.login }).addDisposableTo(disposeBag)
+            user.drive(onNext: {[weak self] in self?.currentUserName = $0.login }).addDisposableTo(disposeBag)
         }
     }
     

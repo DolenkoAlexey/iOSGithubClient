@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxOptional
 import RxSwift
 import RxCocoa
 
@@ -29,8 +30,8 @@ class NewsTableViewController: UITableViewController {
         tableView.dataSource = nil
         tableView.delegate = nil
         
-        user.flatMapLatest { user in self.viewModel.getEvents(of: user.login!) }
-            .map { result -> [Event] in
+        user.flatMapLatest {[unowned self] user in self.viewModel.getEvents(of: user.login!) }
+            .map {[weak self] result -> [Event] in
                 switch result {
                 case .Success(let repositories):
                     return repositories
@@ -42,9 +43,9 @@ class NewsTableViewController: UITableViewController {
             .drive(tableView.rx.items(
                 cellIdentifier: Constants.CellIdentifiers.news,
                 cellType: NewsTableViewCell.self)
-            ) { (_, event, cell) in
-                cell.userImage = self.userImage
-                cell.user = self.user
+            ) {[weak self] (_, event, cell) in
+                cell.userImage = self?.userImage
+                cell.user = self?.user
                 cell.event = event
             }.disposed(by: disposeBag)
     }

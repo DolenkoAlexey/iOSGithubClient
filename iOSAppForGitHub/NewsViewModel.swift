@@ -6,7 +6,6 @@
 //  Copyright © 2017 Alex Dolenko. All rights reserved.
 //
 
-import MoyaSugar
 import Moya
 import RxCocoa
 import RxSwift

@@ -37,7 +37,7 @@ class FollowTableViewController: UITableViewController {
             .drive(tableView.rx.items(
                 cellIdentifier: Constants.CellIdentifiers.follow,
                 cellType: FollowTableViewCell.self)
-            ) {[weak self] (_, user, cell) in
+            ) { [weak self] (_, user, cell) in
                 cell.user = user
                 cell.avatar = self?.viewModel.getUserAvatar(by: user.avatarUrl!)
             }.disposed(by: disposeBag)

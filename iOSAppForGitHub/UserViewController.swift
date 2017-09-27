@@ -47,7 +47,7 @@ class UserViewController: UIViewController {
             self.user.filterNil()
                 .flatMapLatest {[unowned self] user -> Driver<RequestResult<Image?>> in
                     guard let avatarUrl = user.avatarUrl else {
-                        return .just(.Success(UIImage(named: Constants.ImageNames.userNotFound)))
+                        return .just(.Success(UIImage()))
                     }
                     
                     return self.viewModel.getUserAvatar(by: avatarUrl)
@@ -97,6 +97,7 @@ class UserViewController: UIViewController {
     
     private func setNotFoundUser() {
         loginLabel.text = "User not found"
+        userProfileImage.image = UIImage(named: Constants.ImageNames.userNotFound)
         followersCountLabel.text = "---"
         followingCountLabel.text = "---"
         followPanel.isHidden = true

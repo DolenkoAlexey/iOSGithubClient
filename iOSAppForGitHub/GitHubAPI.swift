@@ -15,10 +15,12 @@ public enum GitHubApi {
     case followers(String)
     case following(String)
     case userRepositories(String)
-    case branches(String, Bool)
+    case branches(String, String)
     case repositories(String)
     case events(String)
     case subscriptions(String)
+    case repository(String, String)
+    case repositoryContent(String, String, String)
 }
 
 extension GitHubApi: TargetType {
@@ -33,8 +35,8 @@ extension GitHubApi: TargetType {
         case .userRepositories(let name):
             return "/users/\(name.urlEscaped)/repos"
             
-        case .branches(let repo, _):
-            return "/repos/\(repo.urlEscaped)/branches"
+        case .branches(let userName, let projectName):
+            return "repos/\(userName)/\(projectName)/branches"
             
         case .repositories(_):
             return "/search/repositories"
@@ -50,12 +52,16 @@ extension GitHubApi: TargetType {
             
         case .subscriptions(let username):
             return "users/\(username.urlEscaped)/subscriptions"
+            
+        case .repository(let username, let projectName):
+            return "/repos/\(username)/\(projectName)"
+            
+        case .repositoryContent(let username, let projectName, let path):
+            return "/repos/\(username)/\(projectName)/contents/\(path)"
         }
     }
     
-    public var method: Moya.Method {
-        return .get
-    }
+    public var method: Moya.Method { return .get }
     
     public var headers: [String : String]? {
         switch self {

@@ -5,8 +5,6 @@
 //  Created by Alex Dolenko on 20/09/2017.
 //  Copyright © 2017 Alex Dolenko. All rights reserved.
 //
-
-import Foundation
 import ObjectMapper
 
 public struct Subscription: ImmutableMappable {

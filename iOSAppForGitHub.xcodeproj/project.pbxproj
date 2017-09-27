@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4215E2EE1F7A9C940057E839 /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4215E2ED1F7A9C940057E839 /* RepositoryViewController.swift */; };
+		4215E2F01F7BE3940057E839 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4215E2EF1F7BE3940057E839 /* RepositoryViewModel.swift */; };
 		42164E861F7286A800DADEAE /* String+CamelCaseToWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42164E851F7286A800DADEAE /* String+CamelCaseToWords.swift */; };
 		42164E881F728F3500DADEAE /* SubscriptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42164E871F728F3500DADEAE /* SubscriptionsViewModel.swift */; };
 		42164E8A1F72FF6B00DADEAE /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42164E891F72FF6B00DADEAE /* Subscription.swift */; };
@@ -39,6 +41,8 @@
 		42C0635D1F65BD9E000AC769 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0635C1F65BD9E000AC769 /* Constants.swift */; };
 		42C063611F6606D1000AC769 /* UIAlertController+showErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C063601F6606D1000AC769 /* UIAlertController+showErrorAlert.swift */; };
 		42C063631F66FA69000AC769 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C063621F66FA69000AC769 /* Result.swift */; };
+		42C98C3E1F7BFD7D000FC479 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C98C3D1F7BFD7D000FC479 /* Branch.swift */; };
+		42C98C421F7C0886000FC479 /* RepositoryMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C98C411F7C0886000FC479 /* RepositoryMenuTableViewController.swift */; };
 		E293BA2936F93CB1A972E760 /* Pods_iOSAppForGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B3BEDA9D68932B70CB2277 /* Pods_iOSAppForGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +62,8 @@
 /* Begin PBXFileReference section */
 		22B3BEDA9D68932B70CB2277 /* Pods_iOSAppForGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSAppForGitHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3595004BE37DC6EBB54EEFB5 /* Pods-iOSAppForGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSAppForGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSAppForGitHub/Pods-iOSAppForGitHub.debug.xcconfig"; sourceTree = "<group>"; };
+		4215E2ED1F7A9C940057E839 /* RepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewController.swift; sourceTree = "<group>"; };
+		4215E2EF1F7BE3940057E839 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
 		42164E851F7286A800DADEAE /* String+CamelCaseToWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+CamelCaseToWords.swift"; sourceTree = "<group>"; };
 		42164E871F728F3500DADEAE /* SubscriptionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsViewModel.swift; sourceTree = "<group>"; };
 		42164E891F72FF6B00DADEAE /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 		42C0635C1F65BD9E000AC769 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		42C063601F6606D1000AC769 /* UIAlertController+showErrorAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+showErrorAlert.swift"; sourceTree = "<group>"; };
 		42C063621F66FA69000AC769 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		42C98C3D1F7BFD7D000FC479 /* Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
+		42C98C411F7C0886000FC479 /* RepositoryMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RepositoryMenuTableViewController.swift; path = Assets.xcassets/RepositoryMenuTableViewController.swift; sourceTree = "<group>"; };
 		E4DE170FB7D882E5E03589ED /* Pods-iOSAppForGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSAppForGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSAppForGitHub/Pods-iOSAppForGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,6 +186,7 @@
 				42C063541F62A8AE000AC769 /* Repository.swift */,
 				425EAD241F7185E900E4FDD4 /* Event.swift */,
 				42164E891F72FF6B00DADEAE /* Subscription.swift */,
+				42C98C3D1F7BFD7D000FC479 /* Branch.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -188,6 +197,7 @@
 				4232B59D1F5C645600939A4B /* UserViewModel.swift */,
 				427F1AC91F708B2A0051AA9E /* FollowViewModel.swift */,
 				42C063481F617847000AC769 /* NewsViewModel.swift */,
+				4215E2EF1F7BE3940057E839 /* RepositoryViewModel.swift */,
 				42C063501F62A813000AC769 /* RepositoriesViewModel.swift */,
 				42164E871F728F3500DADEAE /* SubscriptionsViewModel.swift */,
 			);
@@ -199,6 +209,7 @@
 			children = (
 				423E529C1F7134BF007AD36E /* UserExploreViewController.swift */,
 				4232B5741F5C238600939A4B /* UserViewController.swift */,
+				4215E2ED1F7A9C940057E839 /* RepositoryViewController.swift */,
 				42C0635A1F62E3FB000AC769 /* RepositoryExploreViewController.swift */,
 				42C063561F62C125000AC769 /* TableViews */,
 				42C063591F62C151000AC769 /* TableViewCells */,
@@ -214,6 +225,7 @@
 				42C0634C1F617BEC000AC769 /* RepositoriesTableViewController.swift */,
 				42C0634E1F617C08000AC769 /* SubscriptionsTableViewController.swift */,
 				427F1AC51F70815F0051AA9E /* FollowTableViewController.swift */,
+				42C98C411F7C0886000FC479 /* RepositoryMenuTableViewController.swift */,
 			);
 			name = TableViews;
 			sourceTree = "<group>";
@@ -363,13 +375,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4215E2F01F7BE3940057E839 /* RepositoryViewModel.swift in Sources */,
 				42C063631F66FA69000AC769 /* Result.swift in Sources */,
 				4232B5751F5C238600939A4B /* UserViewController.swift in Sources */,
 				427F1ACA1F708B2A0051AA9E /* FollowViewModel.swift in Sources */,
 				423E529D1F7134BF007AD36E /* UserExploreViewController.swift in Sources */,
+				4215E2EE1F7A9C940057E839 /* RepositoryViewController.swift in Sources */,
 				425EAD271F71CE6900E4FDD4 /* String+DateFormat.swift in Sources */,
 				42C0634F1F617C08000AC769 /* SubscriptionsTableViewController.swift in Sources */,
 				42C0634D1F617BEC000AC769 /* RepositoriesTableViewController.swift in Sources */,
+				42C98C421F7C0886000FC479 /* RepositoryMenuTableViewController.swift in Sources */,
 				42C063551F62A8AE000AC769 /* Repository.swift in Sources */,
 				42C063471F617811000AC769 /* UserMenuTableViewController.swift in Sources */,
 				425EAD231F71831E00E4FDD4 /* NewsTableViewCell.swift in Sources */,
@@ -382,6 +397,7 @@
 				42C063611F6606D1000AC769 /* UIAlertController+showErrorAlert.swift in Sources */,
 				4232B59B1F5C643D00939A4B /* User.swift in Sources */,
 				42164E8A1F72FF6B00DADEAE /* Subscription.swift in Sources */,
+				42C98C3E1F7BFD7D000FC479 /* Branch.swift in Sources */,
 				425EAD251F7185E900E4FDD4 /* Event.swift in Sources */,
 				42C063581F62C14D000AC769 /* RepositoryTableViewCell.swift in Sources */,
 				4232B5731F5C238600939A4B /* AppDelegate.swift in Sources */,

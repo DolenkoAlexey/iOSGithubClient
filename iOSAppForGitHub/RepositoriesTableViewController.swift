@@ -39,8 +39,18 @@ class RepositoriesTableViewController: UITableViewController {
             .drive(tableView.rx.items(
                 cellIdentifier: Constants.CellIdentifiers.repository,
                 cellType: RepositoryTableViewCell.self)
-            ) { (_, element, cell) in
-                cell.repository = element
+            ) { (_, repository, cell) in
+                cell.repository = repository
             }.disposed(by: disposeBag)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.SegueIdentifiers.repository,
+            let repositoryViewController = segue.destination as? RepositoryViewController,
+            let repository = (sender as? RepositoryTableViewCell)?.repository,
+            let username = repository.owner?.login,
+            let repositoryName = repository.name {
+                repositoryViewController.viewModel = RepositoryViewModel(username: username, projectName: repositoryName)
+        }
     }
 }

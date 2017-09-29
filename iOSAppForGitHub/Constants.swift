@@ -21,6 +21,8 @@ struct Constants {
         static let showUser = "showUserSegue"
         static let repository = "repositorySegue"
         static let repositoryMenuEmbed = "repositoryMenuEmbedSegue"
+        static let dirSource = "dirSourceSegue"
+        static let fileSource = "fileSourceSegue"
     }
     
     struct CellIdentifiers {
@@ -28,6 +30,7 @@ struct Constants {
         static let follow = "FollowCell"
         static let news = "NewsCell"
         static let subscriptions = "SubscriptionCell"
+        static let source = "SourceCell"
     }
     
     struct ImageNames {

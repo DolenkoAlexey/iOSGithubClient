@@ -42,13 +42,16 @@ class FollowTableViewController: UITableViewController {
                 cell.avatar = self?.viewModel.getUserAvatar(by: user.avatarUrl!)
             }.disposed(by: disposeBag)
     }
-    
+}
+
+// MARK: - Navigation
+extension FollowTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.SegueIdentifiers.showUser,
             let userViewController = segue.destination as? UserViewController,
             let userName = (sender as? FollowTableViewCell)?.user?.login {
-                userViewController.userName = Driver.just(userName)
-                userViewController.viewModel = UserViewModel()
+            userViewController.userName = Driver.just(userName)
+            userViewController.viewModel = UserViewModel()
         }
     }
 }

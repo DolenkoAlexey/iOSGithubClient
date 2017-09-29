@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class RepositoryMenuTableViewController: UITableViewController {
     
@@ -39,6 +40,24 @@ class RepositoryMenuTableViewController: UITableViewController {
             viewModel.branchesCount.drive(onNext: { [weak self] branchesCount in
                 self?.branchesCountLabel.text = "\(branchesCount)"
             }).addDisposableTo(disposeBag)
+        }
+    }
+}
+
+// MARK: - Navigation
+extension RepositoryMenuTableViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.SegueIdentifiers.showUser,
+            let userViewController = segue.destination as? UserViewController,
+            let username = repository.owner?.login {
+                userViewController.userName = Driver.just(username)
+                userViewController.viewModel = UserViewModel()
+        }
+        
+        if segue.identifier == Constants.SegueIdentifiers.dirSource,
+            let sourceTableViewController = segue.destination as? DirSourceTableViewController {
+       
+                sourceTableViewController.viewModel = DirSourceViewModel(repository: repository)
         }
     }
 }

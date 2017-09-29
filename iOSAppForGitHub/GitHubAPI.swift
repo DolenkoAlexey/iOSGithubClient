@@ -54,10 +54,10 @@ extension GitHubApi: TargetType {
             return "users/\(username.urlEscaped)/subscriptions"
             
         case .repository(let username, let projectName):
-            return "/repos/\(username)/\(projectName)"
+            return "/repos/\(username.urlEscaped)/\(projectName.urlEscaped)"
             
         case .repositoryContent(let username, let projectName, let path):
-            return "/repos/\(username)/\(projectName)/contents/\(path)"
+            return "/repos/\(username.urlEscaped)/\(projectName.urlEscaped)/contents/\(path)"
         }
     }
     

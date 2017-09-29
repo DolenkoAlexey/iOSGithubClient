@@ -17,7 +17,7 @@ public protocol RepositoriesViewModelType {
 }
 
 public struct RepositoriesViewModel: RepositoriesViewModelType {
-    fileprivate var provider = GitHubApi.sharedProviderInstance
+    private var provider = GitHubApi.sharedProviderInstance
     
     public func getRepositories(destination: GitHubApi) -> Driver<RequestResult<[Repository]>> {
         return provider.request(destination)
